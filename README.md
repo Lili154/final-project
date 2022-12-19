@@ -1,5 +1,5 @@
 # final-project
-<img style="width:400px;height:300px;border:2px" src = "https://cdn.shopify.com/s/files/1/2180/5147/files/slideshow_1.jpg?v=1631257803">
+<img style="width:400px;height:300px;border:2px" src = "image.png">
 
 ## Description
                        
@@ -30,3 +30,4 @@
 ## For run
 
 *npm start*
+*Open http://localhost:3000 to view it in the browser*
