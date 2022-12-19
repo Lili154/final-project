@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Search from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import logo from '../images/logo.avif'
+import logo from '../images/logo.avif';
+
+
 
 
 
@@ -75,11 +78,13 @@ const Navbar = () =>{
 				<Title>Magic Planet</Title>
 				</Center>
 				<Right>
-				<MenuItem>REGISTER</MenuItem>
-            <MenuItem>SIGN IN</MenuItem>
+        <MenuItem>
+        <Link to="/register">REGISTER</Link>
+        </MenuItem>
+            <MenuItem><Link to ="/login">SIGN IN</Link></MenuItem>
             <MenuItem>
               <Badge badgeContent={4} color="primary">
-                <ShoppingCartIcon />
+              <Link to ="/cart"><ShoppingCartIcon /></Link>
               </Badge>
             </MenuItem>
 				</Right>
