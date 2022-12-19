@@ -1,5 +1,5 @@
 # final-project
-
+<img src = "https://cdn.shopify.com/s/files/1/2180/5147/files/slideshow_1.jpg?v=1631257803">
 ## Description
                        
 *It is online shop for baby clothes and toys. Project was built in*
