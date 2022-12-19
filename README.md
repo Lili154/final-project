@@ -1,7 +1,13 @@
 # final-project
+
 ## Description
                        
-*It is online shop for baby clothes and toys. Project was built in react.js,styled-components and UI materials*
+*It is online shop for baby clothes and toys. Project was built in
+ <ul>
+	<li>react.js</li>
+	<li>styled-components</li>
+	<li> UI materials*</li>
+ </ul>
 
 ## Features
 
