@@ -1,5 +1,5 @@
 # final-project
-<img style="width:400px;height:300px;border:2px" src = "image.png">
+<img style="width:400px;height:300px;border:2px" src = "./Opera Снимок_2022-12-19_171511_localhost.png">
 
 ## Description
                        
