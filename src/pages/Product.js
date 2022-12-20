@@ -5,6 +5,8 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
+
 
 const Container = styled.div``;
 
@@ -160,7 +162,7 @@ const Product = () => {
                 <Amount>1</Amount>
                 <AddIcon />
               </AmountContainer>
-              <Button>ADD TO CART</Button>
+              <Button><Link to="/cart">ADD TO CART</Link></Button>
             </AddContainer>
           </InfoContainer>
         </Wrapper>

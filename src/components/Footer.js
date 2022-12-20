@@ -7,6 +7,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import MailIcon from '@mui/icons-material/Mail';
 import RoomIcon from '@mui/icons-material/Room';
 import logo from '../images/logo.avif';
+import { Link } from "react-router-dom";
 import { mobile } from "../responsive";
   
   const Container = styled.div`
@@ -20,12 +21,10 @@ import { mobile } from "../responsive";
 	flex-direction: column;
 	padding: 20px;
   `;
-const FootLogo = styled.div`
- 	text-align:center;
-` 
+
 const Logo = styled.img`
-	weight:15px;
-	height: 30px;
+	weight:20px;
+	height: 100px;
 `;
   
   const Desc = styled.p`
@@ -92,11 +91,8 @@ const Logo = styled.img`
   const Footer = () => {
 	return (
 		<Container>
-			<FootLogo>
-				<Logo src = {logo}></Logo>
-			</FootLogo>	
-
 			<Left>
+			<Logo src = {logo}></Logo>
 			<Desc>
 				There are many variations of passages of Lorem Ipsum available, but
 				the majority have suffered alteration in some form, by injected
@@ -104,32 +100,30 @@ const Logo = styled.img`
 			</Desc>
 			<SocialContainer>
 				<SocialIcon color="3B5999">
-				<FacebookIcon />
+				<Link to ="https://www.facebook.com"><FacebookIcon /></Link>
 				</SocialIcon>
 				<SocialIcon color="E4405F">
-				<InstagramIcon />
+				<Link to ="https://www.instagram.com"><InstagramIcon /></Link>
 				</SocialIcon>
 				<SocialIcon color="55ACEE">
-				<TwitterIcon />
+				<Link to ="https://twitter.com"><TwitterIcon /></Link>
 				</SocialIcon>
 				<SocialIcon color="E60023">
-				<PinterestIcon />
+				<Link to ="https://www.pinterest.com"><PinterestIcon /></Link>
 				</SocialIcon>
 			</SocialContainer>
 			</Left>
 			<Center>
 			<Title>Useful Links</Title>
 			<List>
-				<ListItem>Home</ListItem>
-				<ListItem>Cart</ListItem>
-				<ListItem>Baby Clothes</ListItem>
-				<ListItem>Milk Bottoms</ListItem>
-				<ListItem>Toys</ListItem>
+				<ListItem><Link to="/">Home</Link></ListItem>
+				<ListItem><Link to="/cart">Cart</Link></ListItem>
+				<ListItem><Link to="/productList">Baby Clothes</Link></ListItem>
+				<ListItem><Link to="/productList">Milk Bottoms</Link></ListItem>
+				<ListItem><Link to="/productList">Toys</Link></ListItem>
 				<ListItem>My Account</ListItem>
 				<ListItem>Order Tracking</ListItem>
-				<ListItem>Wishlist</ListItem>
-				<ListItem>Wishlist</ListItem>
-				<ListItem>Terms</ListItem>
+				
 			</List>
 			</Center>
 			<Right>

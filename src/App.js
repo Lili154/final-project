@@ -16,7 +16,7 @@
         <Route path="/register"  element={<Register/>} />
         <Route path="/login"  element={<Login/>} />
         <Route path="/cart"  element={<Cart/>} />
-        <Route path="/productlist"  element={<ProductList/>} />
+        <Route path="/productList"  element={<ProductList/>} />
           </Routes>
      </BrowserRouter>
       )

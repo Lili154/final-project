@@ -5,9 +5,12 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { sliderItems } from "../data";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
+
 
 
 const Container = styled.div`
+  margin-top:8%;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -56,6 +59,7 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
   height: 80%;
+  width: 100%;
 `;
 
 const InfoContainer = styled.div`
@@ -106,7 +110,7 @@ const Slider = () =>{
               <InfoContainer>
                 <Title>{item.title}</Title>
                 <Desc>{item.desc}</Desc>
-                <Button>SHOW NOW</Button>
+                <Button><Link to="/productList">SHOW NOW</Link></Button>
               </InfoContainer>
             </Slide>
           ))}
