@@ -27,16 +27,19 @@ export const sliderItems = [
       id: 1,
       img: "https://cdn.shopify.com/s/files/1/2180/5147/files/slideshow_1.jpg?v=1631257803",
       title: "BABY CLOTHES",
+      cat:'clothes'
     },
     {
       id: 2,
       img: "https://cdn.shopify.com/s/files/1/2180/5147/files/b5_1053215f-eed0-4d2b-96c0-d3c637dec278.jpg?v=1613699295",
       title: "TOYS",
+      cat:"toys",
     },
     {
       id: 3,
       img: "https://cdn.shopify.com/s/files/1/2180/5147/files/b4_large.jpg?v=1613698961",
       title: "MILK BOTTLES",
+      cat:"bottles"
     },
   ];
 

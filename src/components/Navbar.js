@@ -5,6 +5,7 @@ import Search from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import logo from '../images/logo.avif';
+import { useSelector } from "react-redux";
 
 
 
@@ -63,6 +64,7 @@ const MenuItem = styled.div`
   `
   
 const Navbar = () =>{
+  const quantity = useSelector(state=>state.cart.quantity)
 	return(
 		<Container>
 			<Wrapper>
@@ -82,11 +84,13 @@ const Navbar = () =>{
         <Link to="/register">REGISTER</Link>
         </MenuItem>
             <MenuItem><Link to ="/login">SIGN IN</Link></MenuItem>
+            <Link to ="/cart">
             <MenuItem>
-              <Badge badgeContent={4} color="primary">
-              <Link to ="/cart"><ShoppingCartIcon /></Link>
+              <Badge badgeContent={quantity} color="primary">
+              <ShoppingCartIcon />
               </Badge>
             </MenuItem>
+            </Link>
 				</Right>
 			</Wrapper>
 		</Container>

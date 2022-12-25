@@ -2,6 +2,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
  import styled from "styled-components";
  import SearchIcon from '@mui/icons-material/Search';
  import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+ import { Link } from "react-router-dom";
+
+ 
   
  const Info = styled.div`
 	opacity: 0;
@@ -67,13 +70,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 	return (
 			<Container>
 				<Circle />
-				<Image src={item.img} />
+				<Image  src={item.img}/>
 				<Info>
 				<Icon>
 					<ShoppingCartIcon />
 				</Icon>
 				<Icon>
+					<Link to ={`/product/${item._id}`} >
 					<SearchIcon />
+					</Link>
 				</Icon>
 				<Icon>
 					<FavoriteBorderIcon />

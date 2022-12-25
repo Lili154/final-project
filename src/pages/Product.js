@@ -1,20 +1,24 @@
 import styled from "styled-components";
+import {useState,useEffect} from "react";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import {publicRequest} from "../requestMethods";
+import { addProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
+
 
 
 const Container = styled.div``;
 
 const Wrapper = styled.div`
-  padding: 50px;
   display: flex;
-  ${mobile({ padding: "10px", flexDirection:"column" })}
-  
+  padding: 50px;
+  ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 
 const ImgContainer = styled.div`
@@ -26,13 +30,12 @@ const Image = styled.img`
   height: 90vh;
   object-fit: cover;
   ${mobile({ height: "40vh" })}
-  
 `;
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
-  ${mobile({ padding: "10px" })}
+  ${mobile({ padding: "10px " })}
 `;
 
 const Title = styled.h1`
@@ -47,14 +50,12 @@ const Price = styled.span`
   font-weight: 100;
   font-size: 40px;
 `;
-
 const FilterContainer = styled.div`
-  width: 50%;
-  margin: 30px 0px;
   display: flex;
   justify-content: space-between;
+  width: 50%;
+  margin: 30px 0px;
   ${mobile({ width: "100%" })}
- 
 `;
 
 const Filter = styled.div`
@@ -82,93 +83,114 @@ const FilterSize = styled.select`
 `;
 
 const FilterSizeOption = styled.option``;
-
 const AddContainer = styled.div`
   width: 50%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   ${mobile({ width: "100%" })}
 `;
-
 const AmountContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
 `;
-
 const Amount = styled.span`
   width: 30px;
   height: 30px;
   border-radius: 10px;
   border: 1px solid teal;
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
   margin: 0px 5px;
 `;
-
 const Button = styled.button`
   padding: 15px;
   border: 2px solid teal;
   background-color: white;
   cursor: pointer;
   font-weight: 500;
-  &:hover{
-      background-color: #f8f4f4;
+  &:hover {
+    background-color: #e0ebeb;
   }
 `;
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product,setProduct] = useState({});
+  const [quantity, setQuantity] = useState({});
+  const [color,setColor] = useState("");
+  const [size,setSize] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect (() =>{
+    const getProduct = async()=>{
+    try{
+      const res =await publicRequest.get(`/products/find/${id}`);
+      setProduct(res.data);
+    }catch{}
+    };
+    getProduct()
+  },[id]);
+
+  const handleQuantity = (type)=>{
+    if (type === "dec"){
+    quantity>1 && setQuantity(quantity-1)
+    }else{
+      setQuantity(quantity+1)
+    }
+  };
+
+  const handleclick = () => {
+    dispatch(
+      addProduct({ ...product, quantity, color, size })
+    );
+  }
+
   return 
-      <Container>
+    <Container>
         <Navbar />
         <Wrapper>
-          <ImgContainer>
-            <Image src="https://cdn.shopify.com/s/files/1/2180/5147/products/baby36_600x.jpg?v=1500104766" />
+        <ImgContainer>
+            <Image src={product.img} />
           </ImgContainer>
           <InfoContainer>
-            <Title>Bodysuit</Title>
+            <Title>{product.title}</Title>
             <Desc>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-              iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-              tristique tortor pretium ut. Curabitur elit justo, consequat id
-              condimentum ac, volutpat ornare.
+             {product.desc}
             </Desc>
-            <Price>$ 20</Price>
+            <Price>$ {product.price}</Price>
             <FilterContainer>
               <Filter>
                 <FilterTitle>Color</FilterTitle>
-                <FilterColor color="blue" />
-                <FilterColor color="pink" />
-                <FilterColor color="yellow" />
-				<FilterColor color="green" />
+                {product.color?.map((c)=>(
+                   <FilterColor color={c} key = {c} onClick = {()=>setColor(c)} />
+                ))}
               </Filter>
               <Filter>
                 <FilterTitle>Size</FilterTitle>
-                <FilterSize>
-                  <FilterSizeOption>24</FilterSizeOption>
-                  <FilterSizeOption>26</FilterSizeOption>
-                  <FilterSizeOption>28</FilterSizeOption>
-                  <FilterSizeOption>30</FilterSizeOption>
-                  <FilterSizeOption>32</FilterSizeOption>
+                <FilterSize onChange = {(e)=> setSize(e.target.value)}>
+                {product.size?.map((s)=>(
+                    <FilterSizeOption key = {s} >{s}</FilterSizeOption>
+                ))}
                 </FilterSize>
               </Filter>
             </FilterContainer>
             <AddContainer>
               <AmountContainer>
-                <RemoveIcon />
-                <Amount>1</Amount>
-                <AddIcon />
+                <RemoveIcon onClick = {()=>handleQuantity("dec")} />
+                <Amount>{quantity}</Amount>
+                <AddIcon onClick = {()=>handleQuantity("inc")}/>
               </AmountContainer>
-              <Button><Link to="/cart">ADD TO CART</Link></Button>
+              <Button onClick={handleclick}>ADD TO CART</Button>
             </AddContainer>
           </InfoContainer>
         </Wrapper>
         <Newsletter />
         <Footer />
-      </Container>
+        </Container>
   ;
 };
 

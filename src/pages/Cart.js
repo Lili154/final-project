@@ -1,10 +1,18 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import logo from '../images/logo.avif';
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
+import StripeCheckout from "react-stripe-checkout";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState} from "react";
+import { userRequest } from "../requestMethods";
 
+
+const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``;
 
@@ -154,95 +162,112 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const navigate = useNavigate();
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: 1000,
+        });
+        console.log(res.data);
+        navigate("/success",{
+          state: res.data,
+          products: cart, });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    stripeToken && makeRequest();
+  }, [stripeToken]);
   return (
       <Container>
         <Navbar />
         <Wrapper>
-          <Title>YOUR BAG</Title>
-          <Top>
+        <Title>YOUR BAG</Title>
+        <Top>
+        <Link to="/">
             <TopButton>CONTINUE SHOPPING</TopButton>
-            <TopTexts>
-              <TopText>Shopping Bag(2)</TopText>
-              <TopText>Your Wishlist (0)</TopText>
-            </TopTexts>
-            <TopButton type="filled">CHECKOUT NOW</TopButton>
-          </Top>
-          <Bottom>
-            <Info>
-              <Product>
+          </Link>
+          <TopTexts>
+            <TopText>Shopping Bag(2)</TopText>
+            <TopText>Your Wishlist (0)</TopText>
+          </TopTexts>
+          <TopButton type="filled">CHECKOUT NOW</TopButton>
+        </Top>
+        <Bottom>
+          <Info>
+            {cart.products.map((product) => (
+              <Product key={product._id}>
                 <ProductDetail>
-                  <Image src="https://5.imimg.com/data5/BI/SS/VQ/SELLER-21980186/baby-boy-collar-t-shirt-500x500.jpg" />
+                  <Image src={product.img} />
                   <Details>
                     <ProductName>
-                      <b>Product:</b> T-shirt
+                      <b>Product:</b> {product.title}
                     </ProductName>
                     <ProductId>
-                      <b>ID:</b> 93813718293
+                      <b>ID:</b> {product._id}
                     </ProductId>
-                    <ProductColor color="pink" />
+                    <ProductColor color={product.color} />
                     <ProductSize>
-                      <b>Size:</b> 30
+                      <b>Size:</b> {product.size}
                     </ProductSize>
                   </Details>
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <AddIcon />
-                    <ProductAmount>2</ProductAmount>
+                    <AddIcon/>
+                    <ProductAmount>{product.quantity}</ProductAmount>
                     <RemoveIcon />
                   </ProductAmountContainer>
-                  <ProductPrice>$ 30</ProductPrice>
+                  <ProductPrice>
+                    $ {product.price * product.quantity}
+                  </ProductPrice>
                 </PriceDetail>
               </Product>
-              <Hr />
-              <Product>
-                <ProductDetail>
-                  <Image src="https://www.lodger.com/client/lodger/upload/articles/romper/RS15.2.002/8719033385719_0_RS15.2.002_052-Mist.jpg" />
-                  <Details>
-                    <ProductName>
-                      <b>Product:</b> Bodysuit
-                    </ProductName>
-                    <ProductId>
-                      <b>ID:</b> 93813718293
-                    </ProductId>
-                    <ProductColor color="gray" />
-                    <ProductSize>
-                      <b>Size:</b> 24
-                    </ProductSize>
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <ProductAmountContainer>
-                    <AddIcon />
-                    <ProductAmount>1</ProductAmount>
-                    <RemoveIcon />
-                  </ProductAmountContainer>
-                  <ProductPrice>$ 20</ProductPrice>
-                </PriceDetail>
-              </Product>
-            </Info>
-            <Summary>
-              <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-              <SummaryItem>
-                <SummaryItemText>Subtotal</SummaryItemText>
-                <SummaryItemPrice>$ 80</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>Estimated Shipping</SummaryItemText>
-                <SummaryItemPrice>$ 5.90</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>Shipping Discount</SummaryItemText>
-                <SummaryItemPrice>$ -5.90</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem type="total">
-                <SummaryItemText>Total</SummaryItemText>
-                <SummaryItemPrice>$ 80</SummaryItemPrice>
-              </SummaryItem>
+            ))}
+            <Hr />
+          </Info>
+          <Summary>
+            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+            <SummaryItem>
+              <SummaryItemText>Subtotal</SummaryItemText>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem>
+              <SummaryItemText>Estimated Shipping</SummaryItemText>
+              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem>
+              <SummaryItemText>Shipping Discount</SummaryItemText>
+              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem type="total">
+              <SummaryItemText>Total</SummaryItemText>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+            </SummaryItem>
+            <StripeCheckout
+              name="Magic planet"
+              image src = {logo}
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
               <Button>CHECKOUT NOW</Button>
-            </Summary>
-          </Bottom>
-        </Wrapper>
+            </StripeCheckout>
+          </Summary>
+        </Bottom>
+      </Wrapper>
         <Footer />
       </Container>
   );
