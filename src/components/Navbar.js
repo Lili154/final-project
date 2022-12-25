@@ -81,9 +81,9 @@ const Navbar = () =>{
 				</Center>
 				<Right>
         <MenuItem>
-        <Link to="/register">REGISTER</Link>
+        <Link to="/register" style={{textDecoration:"none", color:"black"}}>REGISTER</Link>
         </MenuItem>
-            <MenuItem><Link to ="/login">SIGN IN</Link></MenuItem>
+            <MenuItem><Link to ="/login" style = {{textDecoration:"none", color:"black"}}>SIGN IN</Link></MenuItem>
             <Link to ="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">

@@ -100,27 +100,27 @@ const Logo = styled.img`
 			</Desc>
 			<SocialContainer>
 				<SocialIcon color="3B5999">
-				<Link to ="https://www.facebook.com"><FacebookIcon /></Link>
+				<Link to ="https://www.facebook.com" style={{textDecoration:"none", }}><FacebookIcon /></Link>
 				</SocialIcon>
 				<SocialIcon color="E4405F">
-				<Link to ="https://www.instagram.com"><InstagramIcon /></Link>
+				<Link to ="https://www.instagram.com" style={{textDecoration:"none", }}><InstagramIcon /></Link>
 				</SocialIcon>
 				<SocialIcon color="55ACEE">
-				<Link to ="https://twitter.com"><TwitterIcon /></Link>
+				<Link to ="https://twitter.com" style={{textDecoration:"none", }}><TwitterIcon /></Link>
 				</SocialIcon>
 				<SocialIcon color="E60023">
-				<Link to ="https://www.pinterest.com"><PinterestIcon /></Link>
+				<Link to ="https://www.pinterest.com" style={{textDecoration:"none", }}><PinterestIcon /></Link>
 				</SocialIcon>
 			</SocialContainer>
 			</Left>
 			<Center>
 			<Title>Useful Links</Title>
 			<List>
-				<ListItem><Link to="/">Home</Link></ListItem>
-				<ListItem><Link to="/cart">Cart</Link></ListItem>
-				<ListItem><Link to="/productList">Baby Clothes</Link></ListItem>
-				<ListItem><Link to="/productList">Milk Bottoms</Link></ListItem>
-				<ListItem><Link to="/productList">Toys</Link></ListItem>
+				<ListItem><Link to="/" style={{textDecoration:"none", color:"black"}}>Home</Link></ListItem>
+				<ListItem><Link to="/cart" style={{textDecoration:"none", color:"black"}}>Cart</Link></ListItem>
+				<ListItem><Link to="/productList" style={{textDecoration:"none", color:"black"}}>Baby Clothes</Link></ListItem>
+				<ListItem><Link to="/productList"style={{textDecoration:"none", color:"black"}}>Milk Bottoms</Link></ListItem>
+				<ListItem><Link  to="/productList" style={{textDecoration:"none", color:"black"}}>Toys</Link></ListItem>
 				<ListItem>My Account</ListItem>
 				<ListItem>Order Tracking</ListItem>
 				
