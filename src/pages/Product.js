@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import {publicRequest} from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import axios from "axios"
 
 
 
@@ -120,15 +121,16 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product,setProduct] = useState({});
-  const [quantity, setQuantity] = useState({});
+  const [quantity, setQuantity] = useState(0);
   const [color,setColor] = useState("");
   const [size,setSize] = useState("");
   const dispatch = useDispatch();
+  
 
   useEffect (() =>{
     const getProduct = async()=>{
     try{
-      const res =await publicRequest.get(`/products/find/${id}`);
+      const res =await axios.get(`http://localhost:5000/product/${id}`);
       setProduct(res.data);
     }catch{}
     };
@@ -148,9 +150,9 @@ const Product = () => {
       addProduct({ ...product, quantity, color, size })
     );
   }
+  console.log(product)
 
-  return 
-    <Container>
+  return <Container>
         <Navbar />
         <Wrapper>
         <ImgContainer>
@@ -165,14 +167,14 @@ const Product = () => {
             <FilterContainer>
               <Filter>
                 <FilterTitle>Color</FilterTitle>
-                {product.color?.map((c)=>(
+                {product?.color?.map((c)=>(
                    <FilterColor color={c} key = {c} onClick = {()=>setColor(c)} />
                 ))}
               </Filter>
               <Filter>
                 <FilterTitle>Size</FilterTitle>
                 <FilterSize onChange = {(e)=> setSize(e.target.value)}>
-                {product.size?.map((s)=>(
+                {product?.size?.map((s)=>(
                     <FilterSizeOption key = {s} >{s}</FilterSizeOption>
                 ))}
                 </FilterSize>
@@ -182,7 +184,7 @@ const Product = () => {
               <AmountContainer>
                 <RemoveIcon onClick = {()=>handleQuantity("dec")} />
                 <Amount>{quantity}</Amount>
-                <AddIcon onClick = {()=>handleQuantity("inc")}/>
+                <AddIcon onClick = {()=>handleQuantity("inc")} />
               </AmountContainer>
               <Button onClick={handleclick}>ADD TO CART</Button>
             </AddContainer>

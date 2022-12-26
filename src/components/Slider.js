@@ -5,7 +5,6 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { sliderItems } from "../data";
 import { mobile } from "../responsive";
-import { Link } from "react-router-dom";
 
 
 
@@ -110,7 +109,7 @@ const Slider = () =>{
               <InfoContainer>
                 <Title>{item.title}</Title>
                 <Desc>{item.desc}</Desc>
-                <Button><Link to="/productList">SHOW NOW</Link></Button>
+                <Button>SHOW NOW</Button>
               </InfoContainer>
             </Slide>
           ))}

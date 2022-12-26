@@ -39,7 +39,7 @@ export const sliderItems = [
       id: 3,
       img: "https://cdn.shopify.com/s/files/1/2180/5147/files/b4_large.jpg?v=1613698961",
       title: "MILK BOTTLES",
-      cat:"bottles"
+      cat:"bottles",
     },
   ];
 

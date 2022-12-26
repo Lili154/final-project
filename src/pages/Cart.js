@@ -14,7 +14,9 @@ import { userRequest } from "../requestMethods";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
-const Container = styled.div``;
+const Container = styled.div`
+ 
+`;
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -188,9 +190,9 @@ const Cart = () => {
     stripeToken && makeRequest();
   }, [stripeToken]);
   return (
-      <Container>
-        <Navbar />
-        <Wrapper>
+    <Container>
+      <Navbar />
+      <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
         <Link to="/">
@@ -216,15 +218,15 @@ const Cart = () => {
                       <b>ID:</b> {product._id}
                     </ProductId>
                     <ProductColor color={product.color} />
-                    <ProductSize>
-                      <b>Size:</b> {product.size}
+                    <ProductSize >
+                      <b>Size:{product.size}</b> 
                     </ProductSize>
                   </Details>
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
                     <AddIcon/>
-                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <ProductAmount>0</ProductAmount>
                     <RemoveIcon />
                   </ProductAmountContainer>
                   <ProductPrice>
@@ -269,7 +271,7 @@ const Cart = () => {
         </Bottom>
       </Wrapper>
         <Footer />
-      </Container>
+    </Container>
   );
 };
 
